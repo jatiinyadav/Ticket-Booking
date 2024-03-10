@@ -2,9 +2,15 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 	"ticket-booking/helper"
 )
+
+type UserDetails struct {
+	firstName     string
+	lastName      string
+	userEmail     string
+	bookedTickets uint
+}
 
 func main() {
 	var firstName string
@@ -13,7 +19,7 @@ func main() {
 	var bookedTickets uint
 	var remainingTickets uint = 3
 
-	bookingNames := make([]map[string]string, 0)
+	bookingNames := make([]UserDetails, 0)
 
 	titleName := "Ticket Booking Platform"
 
@@ -40,20 +46,21 @@ func main() {
 
 			if helper.IsEntriesValid(firstName, lastName, userEmail, bookedTickets, remainingTickets) {
 
-				var userData = make(map[string]string)
-				userData["firstName"] = firstName
-				userData["lastName"] = lastName
-				userData["userEmail"] = userEmail
-				userData["bookedTickets"] = strconv.FormatUint(uint64(bookedTickets), 10)
+				var userData = UserDetails{
+					firstName:     firstName,
+					lastName:      lastName,
+					userEmail:     userEmail,
+					bookedTickets: bookedTickets,
+				}
 
-				fmt.Printf("%v booked %v Ticket(s).🎉\n", userData["firstName"], bookedTickets)
+				fmt.Printf("%v booked %v Ticket(s).🎉\n", userData.firstName, bookedTickets)
 				fmt.Printf("Confirmation will be send at %v\n", userEmail)
 				remainingTickets -= bookedTickets
 
 				bookingNames = append(bookingNames, userData)
 
 				for _, booking := range bookingNames {
-					firstNames = append(firstNames, booking["firstName"])
+					firstNames = append(firstNames, booking.firstName)
 				}
 
 				fmt.Printf("All Users: %v\n", firstNames)
