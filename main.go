@@ -13,6 +13,10 @@ type UserDetails struct {
 }
 
 func main() {
+
+	x, y := swap("Hello", "World")
+	fmt.Print(x, y)
+
 	var firstName string
 	var lastName string
 	var userEmail string = "random@test.com"
